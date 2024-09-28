@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/887e89cc19.js" crossorigin="anonymous"></script>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet" />
+    <title>Withdraw</title>
+    <style>
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .popup button {
+            background-color: #0BB8E3;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="withdraw-nav n2">
+        <a href="index.html"> <button class="btn-with">
+                <div><i class="fa fa-chevron-left"></i></div>
+            </button></a>
+        <div class="with-now1">Withdraw Now</div>
+    </section>
+
+    <section class="withdraw-sec">
+        <div class="withdraw-img">
+            <img src="images/icon-footer-micron-m.png" width="50px" alt="" />
+        </div>
+
+        <!-- Balance Display Section -->
+        <div class="with-money">
+            <div class="with-more" id="balance">$ 50.00</div> <!-- The displayed balance -->
+            <div class="with-bal">Balance</div>
+        </div>
+
+        <form style="display: flex; flex-direction: column;" id="withdrawForm">
+            <div class="with-input">
+                <div>Enter amount you want to Withdraw</div>
+                <input type="text" id="withdrawAmount" placeholder="$ 0" required />
+            </div>
+            <div class="with-input">
+                <div>Enter your USDT wallet Address</div>
+                <input type="text" id="usdtAdress" placeholder="Wallet Address" required />
+            </div>
+            <div class="with-min">
+                <div>Min $500</div>
+                <div>No Limit on Daily Requests</div>
+            </div>
+            <div class="line"></div>
+            <button class="bt" id="submitBtn" type="submit" disabled>Submit</button>
+        </form>
+
+        <!-- Popups -->
+        <div class="popup-overlay" id="popupOverlay"></div>
+
+        <div class="popup" id="lowBalancePopup">
+            <p>Amount is lower than your balance.</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
+
+        <div class="popup" id="exceedBalancePopup">
+            <p>You don't have enough balance to withdraw this amount.</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
+    </section>
+
+    <script>
+        // Get elements
+        const balanceDisplay = document.getElementById('balance');
+        const submitBtn = document.getElementById('submitBtn');
+        const withdrawAmountInput = document.getElementById('withdrawAmount');
+        const usdtAdress = document.getElementById('usdtAdress');
+        const withdrawForm = document.getElementById('withdrawForm');
+        const lowBalancePopup = document.getElementById('lowBalancePopup');
+        const exceedBalancePopup = document.getElementById('exceedBalancePopup');
+        const popupOverlay = document.getElementById('popupOverlay');
+
+        // Extract numeric value from balance text and convert it to a float
+        let balanceValue = parseFloat(balanceDisplay.innerText.replace(/[^0-9.-]+/g, ""));
+
+        // Function to display popup
+        function showPopup(popup) {
+            popupOverlay.style.display = 'block';
+            popup.style.display = 'block';
+        }
+
+        // Function to close popup
+        function closePopup() {
+            popupOverlay.style.display = 'none';
+            lowBalancePopup.style.display = 'none';
+            exceedBalancePopup.style.display = 'none';
+        }
+
+        // Enable/Disable submit button based on input amount
+        withdrawAmountInput.addEventListener('input', function () {
+            const enteredAmount = parseFloat(withdrawAmountInput.value.replace(/[^0-9.-]+/g, ""));
+            // Enable the submit button if the amount entered is valid
+            if (enteredAmount >= 500) {
+                submitBtn.disabled = false;
+                submitBtn.style.backgroundColor = ''; // Reset to default
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.style.backgroundColor = '#ccc'; // Gray out the button
+            }
+        });
+
+        // Add event listener to form submit
+        withdrawForm.addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent form from submitting normally
+
+            const withdrawAmount = parseFloat(withdrawAmountInput.value.replace(/[^0-9.-]+/g, ""));
+
+            // Check if the amount exceeds the balance or is lower
+            if (withdrawAmount < balanceValue) {
+                showPopup(lowBalancePopup);
+            } else if (withdrawAmount > balanceValue) {
+                showPopup(exceedBalancePopup);
+            } else {
+                // Store the withdrawal amount in localStorage
+                localStorage.setItem('withdrawAmount', withdrawAmount);
+
+                // Redirect to transaction page
+                window.location.href = '';
+            }
+        });
+    </script>
+    <script src="authCheck.js"></script>
+</body>
+
+</html>

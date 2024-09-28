@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/887e89cc19.js" crossorigin="anonymous"></script>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet" />
+    <title>Macron Investment</title>
+
+    <style>
+        #btn-sg {
+            background-color: rgb(189, 189, 189);
+            /* Default gray color */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: not-allowed;
+            /* Disable cursor initially */
+        }
+
+        #btn-sg.active {
+            background-color: #00ACC1;
+            /* Blue color when active */
+            cursor: pointer;
+        }
+
+        #btn-sg.loading {
+            background-color: #CFD8DC;
+            cursor: not-allowed;
+        }
+
+        .popup-message {
+            display: none;
+        }
+
+        .popup-message.success {
+            color: #fff;
+        }
+
+        .popup-message.error {
+            color: #fff
+        }
+    </style>
+</head>
+
+<body>
+    <section class="micron-login">
+        <img src="images/micron-logo-white.svg" alt="" />
+        <div class="sng">
+            <p class="s">Sign in</p>
+            <p class="p">Simply enter your phone number to login or create an account.</p>
+        </div>
+
+        <!-- Form with validation -->
+        <form id="loginForm">
+            <input type="text" id="phone" class="inputStyle" placeholder="Enter Phone Number" />
+            <input type="password" id="password" class="inputStyle" placeholder="Enter Password" />
+            <div class="show" onclick="togglePasswordVisibility('password', 'eyeIcon')">
+                <i class="fa fa-eye" id="eyeIcon"></i>
+            </div>
+        </form>
+        <div class="rsg">
+            <p><a href="register.html">Register</a></p>
+        </div>
+        <br>
+        <button id="btn-sg" onclick="validateLogin(event)">Login</button>
+        <br>
+        <br>
+
+        <!-- Popup for success/error message -->
+        <div id="popupMessage" class="popup-message"></div>
+    </section>
+
+    <script>
+        async function validateLogin(event) {
+            event.preventDefault();
+
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const loginButton = document.getElementById('btn-sg');
+
+            // Show "Loading..." and disable the button
+            loginButton.innerText = 'Loading...';
+            loginButton.disabled = true;
+            loginButton.classList.add('loading');
+
+            // Check if both fields are filled
+            if (!phone || !password) {
+                showPopup('Please fill in both phone and password fields.', false);
+                resetLoginButton();
+                return;
+            }
+
+            try {
+                const response = await fetch('https://apexserver-37my.onrender.com/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ phone, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // If login is successful, store the token and show a popup
+                    localStorage.setItem('token', data.token);
+                    showPopup('Login successful!', true);
+
+                    // Redirect based on user role
+                    if (data.role === 'admin') {
+                        window.location.href = 'admin/index.html'; // Redirect to admin dashboard
+                    } else {
+                        window.location.href = 'index.html'; // Redirect to user profile
+                    }
+                } else {
+                    showPopup(data.message || 'Login failed. Please try again.', false);
+                    resetLoginButton();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showPopup('Server error. Please try again later.', false);
+                resetLoginButton();
+            }
+        }
+
+        // Function to reset the login button after process completes
+        function resetLoginButton() {
+            const loginButton = document.getElementById('btn-sg');
+            loginButton.innerText = 'Login';
+            loginButton.disabled = false;
+            loginButton.classList.remove('loading');
+        }
+
+        // Function to show/hide password visibility
+        function togglePasswordVisibility(passwordId, iconId) {
+            const passwordInput = document.getElementById(passwordId);
+            const icon = document.getElementById(iconId);
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Function to show popup messages
+        function showPopup(message, isSuccess) {
+            const popup = document.getElementById('popupMessage');
+            popup.textContent = message;
+            popup.classList.remove('success', 'error');
+            popup.classList.add(isSuccess ? 'success' : 'error');
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000);
+        }
+
+        window.onload = function () {
+            const phoneInput = document.getElementById('phone');
+            const passwordInput = document.getElementById('password');
+            const loginButton = document.getElementById('btn-sg');
+
+            // Function to check if both inputs have values
+            function checkInputs() {
+                const phoneValue = phoneInput.value.trim();
+                const passwordValue = passwordInput.value.trim();
+
+                if (phoneValue && passwordValue) {
+                    // If both inputs have values, enable the button
+                    loginButton.classList.add('active');
+                    loginButton.disabled = false;
+                } else {
+                    // If one or both inputs are empty, disable the button
+                    loginButton.classList.remove('active');
+                    loginButton.disabled = true;
+                }
+            }
+
+            // Listen for input changes
+            phoneInput.addEventListener('input', checkInputs);
+            passwordInput.addEventListener('input', checkInputs);
+        };
+    </script>
+
+</body>
+
+</html>

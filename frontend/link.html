@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/887e89cc19.js" crossorigin="anonymous"></script>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet" />
+    <title>Referral Link</title>
+</head>
+
+<body>
+    <section class="withdraw-nav" style="text-align: center; height: 60px;">
+        <a href="index.html"><button class="btn-with"><i class="fa fa-chevron-left"></i></button></a>
+        <div class="with-now1 n2"></div>
+    </section>
+
+    <section class="withdraw-sec p team" style="background-color: #3949AB; height: 100vh;">
+        <div style="display: flex; justify-content: center;">
+            <img src="images/icon-footer-micron-m.png" alt="" width="30%" />
+        </div>
+        <div class="profile" style="color: #fff; text-align: center; margin-top: 2em;">
+            <div class="" style="font-size: 20px;">Referral Link</div>
+            <br>
+            <div id="referralLink" class="" style="font-size: 14px;">
+                https://micron.ltd/?code=9ae524w6a
+            </div>
+        </div>
+
+        <div class="btn-nn"
+            style="background-color: unset; position: relative; top: -30px; display: flex; justify-content: center;">
+            <button class="reff" id="copyButton" style="border: none;">Copy My Referral Link</button>
+        </div>
+
+        <div class="desc about">
+            <p class="cp">&copy;Description: </p>
+            <div style="color: #fff;">
+                <p>Stable 25% - 40% revenue per day</p>
+                <p>Level 3 promotion income with 30%, 2%, 1%</p>
+                <p>Min withdraw $1000, withdrawal fees: NONE</p>
+                <p>Signup to get $200 in cash</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+        // Link page....
+        // Get the referral link and button elements
+        const referralLink = document.getElementById('referralLink').innerText;
+        const copyButton = document.getElementById('copyButton');
+
+        // Function to copy the referral link to the clipboard
+        function copyToClipboard() {
+            // Create a temporary textarea element to copy the text
+            const tempInput = document.createElement('textarea');
+            tempInput.value = referralLink;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Alert or change button text to show success
+            alert('Referral link copied to clipboard!');
+        }
+
+        // Function to share referral link (for mobile devices)
+        function shareReferralLink() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Join Micron!',
+                    text: 'Check out Micron and get revenue bonuses:',
+                    url: referralLink
+                })
+                    .then(() => console.log('Sharing successful'))
+                    .catch((error) => console.error('Error sharing:', error));
+            } else {
+                copyToClipboard(); // Fallback to copy if share API is not supported
+            }
+        }
+
+        // Add event listener to the button
+        copyButton.addEventListener('click', shareReferralLink);
+
+        //   link page ends
+    </script>
+     <script src="authCheck.js"></script>
+
+</body>
+
+</html>

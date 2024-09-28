@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/887e89cc19.js" crossorigin="anonymous"></script>    
+    <link href="fontawesome/css/all.min.css" rel="stylesheet"/>
+    <title>Recharge Record</title>
+
+    <style>
+        /* Hide the file upload and success/error messages by default */
+        .file-upload-container, .message {
+            display: none;
+        }
+
+        /* Style the messages */
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="withdraw-nav n2" style="height: 70px;">
+        <a href="index.html"><button class="btn-with"><i class="fa fa-chevron-left"></i></button></a>
+        <div class="with-now1">Recharge Record</div>
+    </section>
+    <section class="withdraw-sec">
+
+        <div class="with-money wm">
+            <div class="with-more s">Didn't get coins after payment?</div>
+            <div class="with-bal b">Upload the payment voucher corresponding to the order to help us confirm your order faster</div>
+        </div>
+
+        <div class="with-his des">
+            <div class="line"></div>
+            <div class="with-tran">
+                <div class="un">Time</div>
+                <div class="un">Number</div>
+                <div class="un">Gateway</div>
+                <div class="un">Description</div>
+            </div>
+            <div class="line"></div>
+
+            <!-- <div class="results">
+                <div class="with-tran uncon">
+                    <div class="un">19:08, Aug 7th, 2023</div>
+                    <div class="un">($)5000.00</div>
+                    <div class="un">UPI 3</div>
+                    <div class="un" style="color: #FFC267;">Unconfirmed</div>
+                </div>
+                 Button to trigger file upload 
+                <button class="unconfirmed-btn">Unconfirmed <i class="fa fa-cloud-upload-alt"></i></button>
+
+                 File upload container 
+                <div class="file-upload-container">
+                    <input type="file" id="fileInput" />
+                    <button class="submit-btn">Send</button>
+                </div>
+
+                 Message to display upload status 
+                <div class="message"></div>
+            </div> -->
+
+           
+        </div>
+    </section>
+
+    <script src="index.js"></script>
+    <script src="authCheck.js"></script>
+</body>
+
+</html>

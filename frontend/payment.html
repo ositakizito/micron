@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/887e89cc19.js" crossorigin="anonymous"></script>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet" />
+    <title>Payment</title>
+    <style>
+        /* Add some styles for the copy button and address */
+        .wallet2 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .wallet2 input {
+            margin-right: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+
+        .wallet2 .btn {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .wallet2 .btn i {
+            margin-right: 5px;
+        }
+
+        /* Styles for the custom popup */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        .popup-container.active {
+            display: block;
+        }
+
+        .popup-container p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="withdraw-nav n2" style="height: 60px; background-color: #E1EFF8;">
+        <div class="with-now1" style="color: #333333;">Choose a method to pay</div>
+    </section>
+    <section class="micron-navtab rech" style="background-color: #E1EFF8;">
+        <div class="pay">$<span id="rechargeAmount">5000</span></div>
+    </section>
+
+    <section class="micron-navtab rech" style="background-color: #E1EFF8;">
+        <div class="tf">Transfer</div>
+    </section>
+
+    <section class="micro-part pay h">
+        <div class="paying">
+            Make sure you check on the network type before making any transactions
+        </div>
+        <div class="paywith">
+            Pay with Crypto Currency
+        </div>
+        <div class="wallet">
+            <div class="wallet2">
+                <div class="bt">BTC</div>
+                <input type="text" id="btcAddress" readonly value="bc1qsfey3lx52wxheejfeh00h5fzzy30a69pq4htnl" />
+                <button class="btn" onclick="copyToClipboard('btcAddress')"><i class="fa fa-copy"></i> Copy</button>
+            </div>
+            <div class="wallet2">
+                <div class="bt" style="width: 40px;">USDT</div>
+                <input type="text" id="usdtAddress" readonly value="TV9XwrrokTyfh7V3k8EKkoYzKeGxcA59es" />
+                <button class="btn" onclick="copyToClipboard('usdtAddress')"><i class="fa fa-copy"></i> Copy</button>
+            </div>
+            <div class="wallet2">
+                <div class="bt">ETH</div>
+                <input type="text" id="ethAddress" readonly value="0x66b0630d8f89A601D2AFbAd11207c27d73C9E669" />
+                <button class="btn" onclick="copyToClipboard('ethAddress')"><i class="fa fa-copy"></i> Copy</button>
+            </div>
+            <div class="wallet2">
+                <div class="bt">TON</div>
+                <input type="text" id="tonAddress" readonly value="UQBeLAk_IJ8Ehfk-Ax6S1svxCCO2yBgUS77O0WAvEn4LwTk-" />
+                <button class="btn" onclick="copyToClipboard('tonAddress')"><i class="fa fa-copy"></i> Copy</button>
+            </div>
+        </div>
+        <div class="ins">USDT on TRC20 network Take Note!</div>
+
+        <a href="index.html" style="text-decoration: none;"><button class="pai">I Have Paid, Check now</button></a>
+        <div class="paidd">If you have any question, contact us by email</div>
+        <div class="paidd">Email address: ApexGrowth@gmail.com</div>
+    </section>
+    <section>
+        <div class="secure"> Secured by Google</div>
+    </section>
+
+    <!-- Custom Popup for Copy Confirmation -->
+    <div class="popup-container" id="copyPopup">
+        <p>Address copied to clipboard!</p>
+    </div>
+
+    <script>
+        // payment...
+        // Function to copy text to clipboard and show popup
+        function copyToClipboard(elementId) {
+            const copyText = document.getElementById(elementId);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+
+            // Show the popup message
+            const popup = document.getElementById('copyPopup');
+            popup.classList.add('active');
+
+            // Hide the popup after 2 seconds
+            setTimeout(() => {
+                popup.classList.remove('active');
+            }, 2000);
+        }
+
+        // Get the amount from local storage and display it
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const amount = localStorage.getItem('rechargeAmount') || '5000'; // Default to 5000 if not set
+            document.getElementById('rechargeAmount').textContent = amount;
+        });
+        // payment ends....
+
+    </script>
+     <script src="authCheck.js"></script>
+</body>
+
+</html>

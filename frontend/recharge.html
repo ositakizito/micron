@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/887e89cc19.js" crossorigin="anonymous"></script>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet" />
+    <title>Recharge</title>
+</head>
+
+<body>
+    <section class="recharge-group">
+        <section class="withdraw-nav n2" style="height: 60px;">
+            <a href="index.html"><button class="btn-with"><i class="fa fa-chevron-left"></i></button></a>
+            <div class="with-now1">Recharge</div>
+        </section>
+        <section class="micron-navtab rech">
+            <div class="coin c1">
+                <p>My coins</p>
+                <p class="copy co z">&copy; 0</p>
+                <p class="bal b">please do not share your top-up voucher to anyone</p>
+            </div>
+            <div class="coin c1">
+                <p>My balance</p>
+                <p class="copy co l">$50.00</p>
+                <p class="bal b p"><a href="rechargeRecord.html"> I Paid, but I didn't get coins?</a></p>
+            </div>
+        </section>
+
+        <section class="paid">
+        </section>
+
+        <section class="micro-part">
+            <div class="flex-container3">
+                <button class="amount-btn">&copy; 5000</button>
+                <button class="amount-btn">&copy; 7000</button>
+                <button class="amount-btn">&copy; 9000</button>
+                <button class="amount-btn">&copy; 8000</button>
+                <button class="amount-btn">&copy; 10000</button>
+                <button class="amount-btn">&copy; 20000</button>
+                <button class="amount-btn">&copy; 50000</button>
+            </div>
+
+            <!-- Input form -->
+            <form id="form" action="payment.html">
+                <input type="number" id="RechInput" class="RechInput" placeholder="Enter amount" required />
+                <input type="submit" class="bttn" value="Submit" />
+            </form>
+
+            <div class="desc">
+                <p class="cp">&copy;Description: </p>
+                <p>All Investment plans at micron can only be purchased with coins. Please click on any of the packages
+                    below to buy some coins first before you invest:</p>
+            </div>
+        </section>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+
+        // recharge...
+        // Get all the amount buttons and input field
+        const buttons = document.querySelectorAll('.amount-btn');
+        const inputField = document.getElementById('RechInput');
+        const form = document.getElementById('form');
+
+        // Add event listener to each button
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                // Extract the amount from button text and remove special characters
+                const amount = this.innerText.replace(/[^\d]/g, '');
+                // Set the amount in the input field
+                inputField.value = amount;
+            });
+        });
+
+        // Store the input amount in localStorage on form submit
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+            const amount = inputField.value; // Get the value from the input field
+
+            // Store the amount in localStorage
+            if (amount) {
+                localStorage.setItem('rechargeAmount', amount);
+                // Redirect to the payment page
+                window.location.href = 'payment.html';
+            }
+        });
+
+    </script>
+     <script src="authCheck.js"></script>
+</body>
+
+</html>

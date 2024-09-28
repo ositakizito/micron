@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/887e89cc19.js" crossorigin="anonymous"></script>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet" />
+    <title>Profile</title>
+</head>
+
+<body>
+    <section class="withdraw-nav pro">
+        <button class="btn-with"></button>
+        <a href="https://t.me/yourchannelname" target="_blank" style="text-decoration: none;">
+            <div class="with-now1 n2">Customer <br>Support <i class="fa fa-headset"></i></div>
+        </a>
+    </section>
+
+    <div id="popupMessage" class="popup-message"></div>
+
+    <section class="withdraw-sec p" style="background-color: unset;">
+        <div class="withdraw-img">
+            <img src="images/icon-footer-micron-m.png" width="50px" alt="Avatar" />
+        </div>
+        <div class="with-money pro">
+            <div class="with-more">My ID</div>
+            <div class="with-bal bal" id="phoneNumber"></div> <!-- Display phone dynamically -->
+        </div>
+        <div class="profile" style="background-color: white;">
+            <div class="with-input">
+                <div>My Coins</div>
+            </div>
+            <div class="with-input coin">
+                <div class="cl" style=" width: 50px; border-radius: 50px; color:#ffffff; font-size: 40px">&copy;</div>
+                <div class="cl">My Coins</div>
+            </div>
+            <div class="line"></div>
+            <div class="with-min b">
+                <div>
+                    <div>Balance</div>
+                    <div class="dols s">$50.00</div>
+                </div>
+                <div>
+                    <div>Today profit</div>
+                    <div class="dols">$50</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-container">
+            <div class="ft">More features</div>
+            <div class="flex-container1">
+                <a href="recharge.html">
+                    <button class="btn-more">
+                        <div><i class="material-icons">shopping_cart</i></div>
+                        <p>Buy coins</p>
+                    </button>
+                </a>
+                <a href="withdraw.html">
+                    <button class="btn-more">
+                        <div><i class="material-icons">attach_money</i></div>
+                        <p>Withdraw</p>
+                    </button>
+                </a>
+
+                <a href="rechargeRecord.html">
+                    <button class="btn-more">
+                        <div><i class="material-icons">history</i></div>
+                        <p>Record</p>
+                    </button>
+                </a>
+
+                <a href="about.html">
+                    <button class="btn-more">
+                        <div><i class="material-icons">info</i></div>
+                        <p>About Us</p>
+                    </button>
+                </a>
+
+                <a href="https://t.me/yourchannelname" target="_blank">
+                    <button class="btn-more">
+                        <div><i class="material-icons">headset_mic</i></div>
+                        <p>Customer Support</p>
+                    </button>
+                </a>
+
+                <a href="#" onclick="logout()">
+                    <button class="btn-more" id="logoutButton">
+                        <div><i class="material-icons">logout</i></div>
+                        <p>Log Out</p>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="micron-bottom">
+        <a href="index.html">
+            <button class="micron-icon">
+                <div><i class="material-icons" style="font-size: 20px;">home</i></div>
+                <div class="home">Home</div>
+            </button>
+        </a>
+        <a href="invest.html">
+            <button class="micron-icon">
+                <div><i class="material-icons" style="font-size: 20px;">trending_up</i></div>
+                <div class="home">Invest</div>
+            </button>
+        </a>
+        <a href="link.html">
+            <button class="micron-icon link">
+                <div><i class="material-icons" style="font-size: 20px;">link</i></div>
+                <div class="home">Link</div>
+                <div class="circler"></div>
+            </button>
+        </a>
+        <a href="team.html">
+            <button class="micron-icon">
+                <div><i class="material-icons" style="font-size: 20px;">groups</i></div>
+                <div class="home">Team</div>
+            </button>
+        </a>
+        <a href="profile.html">
+            <button class="micron-icon active">
+                <div><i class="material-icons" style="font-size: 20px;">person</i></div>
+                <div class="home">Profile</div>
+            </button>
+        </a>
+    </section>
+
+
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html'; // Redirect if no token
+            }
+
+            fetch('https://apexserver-37my.onrender.com/api/profile', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    if (response.status === 401) {
+                        // If unauthorized, redirect to login
+                        window.location.href = 'login.html';
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.message) {
+                        showPopup(data.message, false);
+                        window.location.href = 'login.html';
+                    } else {
+                        document.getElementById('phoneNumber').textContent = data.phone || 'No Phone'; // Display the phone number
+                    }
+                })
+
+                .catch(error => {
+                    console.error('Error:', error);
+                    showPopup('Failed to load profile', false);
+                });
+        });
+
+        function logout() {
+            localStorage.removeItem('token'); // Remove token
+            showPopup('Logout successful! Redirecting to login...', true);
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 2000); // 2 seconds delay
+        }
+
+        function showPopup(message, isSuccess) {
+            const popup = document.getElementById('popupMessage');
+            popup.textContent = message;
+            popup.classList.remove('success', 'error'); // Reset popup classes
+            popup.classList.add(isSuccess ? 'success' : 'error'); // Add success or error class
+            popup.style.display = 'block'; // Show the popup
+
+            setTimeout(() => {
+                popup.style.display = 'none'; // Hide popup after 3 seconds
+            }, 3000);
+        }
+    </script>
+    <script src="authCheck.js"></script>
+
+</body>
+
+</html>

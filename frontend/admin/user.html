@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Users</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1><a href="admin/index.html" style="text-decoration: none; color: #fff;">Dashboard</a></h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <nav class="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="user.html">View Users</a></li>
+            <li><a href="addAdmin.html">Add Admin</a></li>
+            <li><a href="/frontend/profile.html">Main profile</a></li>
+            <li><a href="adminwithdraw.html">withdraw</a></li>
+            <li><a href="main.html">Homepage</a></li>
+        </ul>
+    </nav>
+
+    <section class="main-content">
+        <h2>View Users</h2>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Phone</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="user-list">
+                <!-- User data will be injected here -->
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>Admin Dashboard &copy; 2024</p>
+    </footer>
+
+    <script src="index.js"></script>
+    <script>
+        async function fetchUsers() {
+            try {
+                const response = await fetch('http://localhost:3000/api/admin/total-users', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`, // Pass the JWT token
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const users = await response.json();
+                const userList = document.getElementById('user-list');
+                userList.innerHTML = ''; // Clear the table before adding new data
+
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                <td>${user.id}</td>
+                <td>${user.phone}</td>
+                <td>${user.role}</td>
+                <td>
+                    <button class="edit-btn" onclick="editUser(${user.id})">Edit</button>
+                    <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
+                </td>
+            `;
+                    userList.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        }
+
+        function editUser(userId) {
+            // Implement edit functionality
+            alert('Edit user with ID: ' + userId);
+        }
+
+        function deleteUser(userId) {
+            // Implement delete functionality
+            alert('Delete user with ID: ' + userId);
+        }
+
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('token'); // Clear the token
+            window.location.href = '/frontend/login.html'; // Redirect to login page
+        });
+
+        // Fetch users when the page loads
+
+    </script>
+    <script src="index.js"></script>
+</body>
+
+</html>

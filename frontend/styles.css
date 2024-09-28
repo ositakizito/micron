@@ -1,0 +1,1250 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+:root {
+    --bg: #E3F2FD;
+    /* Lighter background, Light Blue 50 */
+    --btn: #00ACC1;
+    /* Slightly darker Cyan, Cyan 500 */
+    --nav: #3949AB;
+    /* Deeper shade for nav, Indigo 500 */
+    --white: #FFFFFF;
+    /* White remains the same */
+    --gray: #CFD8DC;
+    /* Softer gray, Blue Grey 200 */
+    --dark: #212121;
+    /* Darker tone for contrast, Grey 900 */
+    --yellow: #FFC107;
+    /* Bright Amber, Amber 500 */
+    --red: #FF5252;
+    /* Red A200 remains */
+    --pay: #B3E5FC;
+    /* Slightly softer pay color, Light Blue 100 */
+    --grn: #00E676;
+    /* Lighter green for a modern feel, Green A400 */
+    --hd: #1976D2;
+    /* Blue 700 for header elements */
+    --lblu: #5E35B1;
+    /* Deep Purple 600 remains */
+
+    /* --bg: #ECEFF7;
+    --btn: #0BB8E3;
+    --nav: #4040d8;
+    --white: #FFFFFF;
+    --gray: #E7EBEE;
+    --dark: #333333;
+    --yellow: #FFC267;
+    --red: #FE5D4F;
+    --pay: #D0E1FF;
+    --grn: #01B168;
+    --hd: #2B88D8;
+    --lblu: #4544DE; */
+    /* NEW */
+    /* --login: #ECEFF7;
+    --loginBtn: #E7EBEE;
+    --btn: #0BB8E3;
+    --hd: #2B88D8;
+    --bgc: #1552A6;
+    --grn: #01B168;
+    --blu: #003D8E;
+    --yell: #FFC267;
+    --pay: #D0E1FF;
+    --lblu: #4544DE;
+    --rd: #FE5D4F;
+    --dk: #333333; */
+
+}
+
+body {
+
+    background-color: var(--bg);
+
+}
+
+
+/* inves popup alert */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    color: #fff;
+}
+
+.hidden {
+    display: none;
+}
+
+#popup-close {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Popup styles */
+.popup-message {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--red);
+    /* Default is error (red) */
+    color: white;
+    border-radius: 10px;
+    z-index: 1000;
+    text-align: center;
+    font-size: 18px;
+    width: 300px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup-message.success {
+    background-color: var(--grn);
+}
+
+.popup-message.error {
+    background-color: var(--red);
+}
+
+/* Main home page */
+section.micron-nav {
+    position: sticky;
+    z-index: 999;
+    top: 0;
+    width: 100%;
+    padding: 8px;
+    background-color: var(--nav);
+}
+
+section.micron-nav img {
+    width: 50%;
+}
+
+section.micron-navtab {
+    background-color: var(--nav);
+    padding: 10px 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+section.micron-navtab .coin {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+section.micron-navtab .coin .copy {
+    font-size: 35px;
+    padding: 10px 0px;
+}
+
+section.micron-navtab .coin .bal {
+    font-size: 16px;
+    margin-bottom: 30px;
+
+}
+
+section.micron-navtab button.invest {
+    background-color: var(--gray);
+    height: 60px;
+    padding: 8px;
+    width: 70px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 15px;
+    border: none;
+}
+
+section.micron-navtab button.invest p {
+    font-size: 16px;
+
+}
+
+section.tabwidget {
+    background-color: var(--white);
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+    border-radius: 12px;
+    box-shadow: -2px 4px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+
+
+}
+
+section.tabwidget a {
+    margin: 0 auto;
+}
+
+section.tabwidget button.tab {
+    flex: 1;
+    margin: 12px;
+    border: none;
+    cursor: pointer;
+    background-color: unset;
+    font-size: 14px;
+    text-align: center;
+}
+
+section.tabwidget button.tab img {
+    margin-bottom: 5px;
+}
+
+section.plan {
+    margin: 10px 0px;
+    padding: 12px 8px 2px;
+    display: flex;
+}
+
+section.plan div {
+    font-size: 18px;
+    text-align: center;
+    align-items: center;
+    top: 10px;
+    font-weight: 600;
+    display: flex;
+    color: var(--nav);
+    margin: 0px 8px;
+}
+
+section.micro-group {
+    margin-bottom: 80px;
+
+}
+
+section.micro-part {
+    margin: 12px;
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 12px 8px;
+    /* box-shadow: ; */
+
+}
+
+section.micro-part .micro-m p {
+    font-weight: 800;
+    color: var(--nav);
+}
+
+section.micro-part .micron-n {
+    display: flex;
+}
+
+section.micro-part .micron-n .micro-d {
+    flex: 1;
+    margin: 2px;
+    color: gray;
+}
+
+section.micro-part .micron-n .micro-d .micro-l {
+    font-size: 30px;
+}
+
+section.micro-part .micron-n .micro-d .micro-l span {
+    font-size: 14px;
+}
+
+section.micro-part .micron-n .micro-d p {
+    font-size: 12px
+}
+
+section.micro-part .micron-n .micro-d {
+    text-align: right
+}
+
+section.micro-part .micron-n .micro-d .micro-l.n {
+    color: var(--yellow);
+    text-align: left
+}
+
+section.micro-part .micron-n .micro-d .micro-l.p {
+    color: var(--red);
+    text-align: center;
+}
+
+section.micro-part .micron-n .micro-d .micro-l.d {
+    color: var(--dark)
+}
+
+section.micro-part .micron-n .micro-d .micro-de {
+    text-align: left;
+
+}
+
+section.micro-part .micron-n .micro-d .micro-da {
+    text-align: center;
+}
+
+section.micro-part .micron-n .micro-dr {
+    text-align: right;
+}
+
+section.micro-part .circleAll {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+hr {
+    margin: 10px;
+}
+
+section.micro-part .circleAll .circle {
+    display: flex;
+    position: relative;
+    top: -19px;
+    margin: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    background: var(--yellow);
+}
+
+section.micro-part .micro-set {
+    display: flex;
+}
+
+section.micro-part .micro-set .micro-s {
+    font-size: 12px;
+    flex: 1;
+    margin: 5px;
+}
+
+section.micro-part .micro-set .micro-t {
+    color: var(--nav);
+    font-weight: 600;
+}
+
+section.micro-part .micro-set .micro-s p {
+    margin: 8px 0;
+}
+
+section.micro-part .micro-set .micro-s .micro-t.c {
+    text-align: center;
+}
+
+section.micro-part .micro-set .micro-s .micro-t.do {
+    text-align: right;
+}
+
+section.micro-part .micro-set .micro-s .micro-do {
+    text-align: right;
+}
+
+section.micro-part .btn-g {
+    margin: 15px 0px;
+    display: flex;
+}
+
+section.micro-part .btn-g button.btn-i {
+    width: 100%;
+    padding: 12px 8px;
+    background-color: var(--yellow);
+    border: none;
+    font-size: 18px;
+    border-radius: 50px;
+    font-weight: 700;
+    color: var(--nav);
+
+}
+
+
+section.micro-part .btn-g .btn-p {
+    position: absolute;
+    right: 0;
+    cursor: none;
+    margin: -19px 5px;
+    background-color: var(--nav);
+    color: var(--white);
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+}
+
+section.micro-part .micro-ins {
+    margin: 10px 17px;
+    background-color: var(--gray);
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--dark);
+}
+
+section.micro-part .micro-ins ul {
+    color: var(--dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+}
+
+section.micro-part .micro-ins ul li {
+    margin: 10px 0px;
+
+}
+
+section.micron-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* background-color: var(--white); */
+    display: flex;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: var(--white);
+    box-shadow: 10px 8px 35px rgba(0, 0, 0, 0.5);
+    justify-content: space-between;
+    margin: 0px;
+}
+
+section.micron-bottom button.micron-icon {
+    width: 100%;
+    color: var(--dark);
+    border: none;
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8px 12px;
+    background-color: unset;
+}
+
+
+section.micron-bottom button.micron-icon .circler {
+    width: 60px;
+    height: 80px;
+    z-index: -1;
+    background-color: var(--white);
+    position: absolute;
+    top: -15px;
+    border-radius: 50px;
+}
+
+section.micron-bottom>a {
+    text-decoration: none;
+    color: var(--white);
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+section.micron-bottom button.micron-icon>img {
+    width: 30px;
+}
+
+
+/* Main home page  ends*/
+
+
+
+
+/* Login details */
+section.micron-login {
+    padding: 10px;
+}
+
+section.micron-login.tp {
+    margin-top: -10px;
+}
+
+section.micron-login img {
+    margin: 10px auto;
+    width: 100%;
+}
+
+section.micron-login .sng {
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+section.micron-login .sng .s {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 5px;
+
+}
+
+section.micron-login .sng .p {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+section.micron-login form {
+    display: flex;
+    flex-direction: column;
+
+}
+
+section.micron-login form .inputStyle {
+    border-radius: 7px;
+    padding: 14px 8px;
+    margin: 5px 0px;
+    height: 70px;
+    outline: none;
+    border: 1px solid var(--gray);
+}
+
+section.micron-login form .show {
+    font-size: 20px;
+    cursor: pointer;
+    width: 50px;
+    text-align: center;
+    padding: 16px 8px;
+    position: absolute;
+    right: 0;
+    margin-top: 90px;
+    margin-right: 10px;
+
+}
+
+section.micron-login form .show2 {
+    font-size: 20px;
+    cursor: pointer;
+    width: 50px;
+    text-align: center;
+    padding: 16px 8px;
+    position: absolute;
+    right: 0;
+    margin-top: 170px;
+    margin-right: 10px;
+
+}
+
+section.back button {
+    margin: 5px 5px;
+    padding: 8px 8px;
+    border: none;
+    background-color: unset;
+}
+
+section.micron-login .rsg {
+    font-size: 12px;
+
+}
+
+section.micron-login .rsg p a {
+    font-size: 16px;
+    color: var(--btn);
+
+}
+
+section.micron-login .rsg .p {
+    font-size: 14px;
+    margin: 10px 16px;
+    text-align: center;
+    color: var(--dark);
+}
+
+section.micron-login button {
+    width: 100%;
+    padding: 14px 8px;
+    margin: 5px 0px;
+    border-radius: 40px;
+    height: 70px;
+    border: none;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--dark);
+    background-color: var(--gray);
+    /* background-color: var(--btn); */
+    justify-content: center;
+}
+
+/* Login ends */
+
+
+/* withdrawal page */
+section.withdraw-nav {
+    display: flex;
+    background-color: var(--nav);
+    padding: 10px 6px;
+    justify-content: start;
+
+}
+
+section.withdraw-nav .with-now1 {
+    color: var(--white);
+    font-size: 18px;
+    position: relative;
+    margin: 10px 20px;
+    height: 0;
+
+}
+
+section.withdraw-nav button.btn-with {
+    margin: 0px 0px 100px;
+    padding: 12px 8px;
+    border: none;
+    background-color: unset;
+    color: var(--white);
+
+}
+
+section.withdraw-sec {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+
+}
+
+section.withdraw-sec .withdraw-img {
+    display: flex;
+    justify-content: center;
+}
+
+section.withdraw-sec .withdraw-img img {
+    background-color: var(--yellow);
+    padding: 12px 8px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin-top: -50px;
+    border: 2.5px solid var(--white);
+}
+
+section.withdraw-sec .with-money {
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+section.withdraw-sec .with-more {
+    font-size: 25px;
+}
+
+section.withdraw-sec .with-bal {
+    font-size: 16px;
+    color: var(--dark);
+}
+
+section.withdraw-sec .with-input {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 8px;
+}
+
+section.withdraw-sec .with-input input {
+    padding: 15px 18px;
+    border: 1px solid gray;
+    height: 50px;
+    font-size: 16px;
+    outline: none;
+    background-color: var(--bg);
+    border-radius: 10px;
+}
+
+section.withdraw-sec .with-input input::placeholder {
+    color: var(--dark);
+    font-size: 20px;
+}
+
+section.withdraw-sec .with-min {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: var(--dark);
+}
+
+section.withdraw-sec .line {
+    width: 100%;
+    height: 1px;
+    background-color: gray;
+
+}
+
+section.withdraw-sec button.bt {
+    padding: 15px 8px;
+    margin: 20px auto;
+    width: 90%;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    background-color: var(--nav);
+    font-size: 18px;
+    color: var(--white);
+
+}
+
+section.withdraw-sec .with-his {
+    display: flex;
+    flex-direction: column;
+}
+
+section.withdraw-sec .with-his .his {
+    padding: 12px 8px;
+    text-align: left;
+    font-size: 18px;
+}
+
+section.withdraw-sec .with-tran {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 8px;
+}
+
+
+/* witdrawal ended */
+
+
+/* Profile started */
+section.withdraw-nav.pro {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+section.withdraw-nav.pro .with-now1.n2 {
+    font-size: 14px;
+}
+
+section.withdraw-sec .with-money.pro {
+    display: flex;
+    flex-direction: row;
+
+}
+
+section.withdraw-sec.p {
+
+    margin-bottom: 70px;
+}
+
+section.withdraw-sec .with-money.pro .with-bal.bal {
+    margin: 0 15px;
+}
+
+section.withdraw-sec .with-input.coin {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+section.withdraw-sec .with-input.coin .cl {
+    background-color: var(--hd);
+    height: 40px;
+    width: 80px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+}
+
+section.withdraw-sec .with-input.coin .cn {
+    height: 40px;
+    width: 80px;
+
+}
+
+section.withdraw-sec .profile {
+
+    margin: 15px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+section.withdraw-sec .with-money.pro {}
+
+section.withdraw-nav.n2 {}
+
+section.withdraw-sec .with-min .dols {
+    text-align: right;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px 0px;
+
+}
+
+section.withdraw-sec .with-min .dols.s {
+    text-align: left;
+    font-size: 18px;
+    padding: 8px 0px;
+    font-weight: 600;
+
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    background-color: var(--white);
+    padding: 10px 5px;
+    border-radius: 10px;
+    color: var(--dark);
+}
+
+.flex-container .ft {
+    padding: 8px;
+    text-align: left;
+    font-size: 18px;
+}
+
+.flex-container1 {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin: 10px 5px;
+    justify-content: space-between;
+}
+
+.flex-container1>a {
+    text-decoration: none;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.flex-container1 button.btn-more {
+    margin: 5px 0px;
+    display: flex;
+    flex-direction: column;
+    width: 95px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--dark);
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--gray);
+}
+
+.flex-container1 button.btn-more p {
+    margin: 5px;
+
+}
+
+/* END OF PROFILE */
+
+/* Recharge started */
+section.recharge-group {
+    margin-bottom: 80px;
+}
+
+section.micron-navtab.rech {
+    display: flex;
+
+}
+
+section.micron-navtab.rech .coin.c1 {}
+
+section.micron-navtab.rech .coin.c1 .copy.co.z {}
+
+section.micron-navtab.rech .coin.c1 .copy.co {
+    flex: 1;
+
+}
+
+section.micron-navtab.rech .coin.c1 .copy.co.l {
+    border-left: 5px solid var(--white);
+    padding: 10px;
+    margin-right: 15px;
+}
+
+section.micron-navtab.rech .coin.c1 .bal.b {
+    font-size: 12px;
+    flex: unset;
+    flex-direction: column;
+
+}
+
+section.micron-navtab.rech .coin.c1 .bal.b.p {
+    margin-top: 25px;
+
+}
+
+section.micron-navtab.rech .coin.c1 .bal.b.p a {
+    color: var(--white);
+
+}
+
+section.micro-part .flex-container3 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+section.micro-part .flex-container3 button {
+    padding: 15px 8px;
+    margin: 5px;
+    font-size: 16px;
+    width: 100px;
+    background-color: var(--gray);
+    border: none;
+    margin: 5px auto;
+    border-radius: 10px;
+
+}
+
+section.micro-part form {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+section.micro-part form input {
+    margin: 5px;
+    padding: 14px 8px;
+}
+
+section.micro-part form input.RechInput {
+    border: none;
+    border-bottom: dotted;
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    outline: none;
+    font-size: 30px;
+    text-align: center;
+}
+
+section.micro-part form input.bttn {
+    border: none;
+    background: var(--btn);
+    font-size: 16px;
+    color: var(--white);
+    border-radius: 50px;
+    padding: 20px;
+}
+
+section.micro-part .desc {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0px;
+    color: var(--dark);
+
+    text-align: left;
+    font-size: 14px;
+}
+
+section.micro-part .desc .cp {
+    font-size: 16px;
+    color: var(--grn);
+    margin-bottom: 8px;
+}
+
+/* Recharge ended */
+
+/* Payment css */
+
+section.micron-navtab.rech .pay {
+    background-color: var(--lblu);
+    width: 300px;
+    margin: 0 auto;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--white);
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+section.micron-navtab.rech .tf {
+    padding: 10px 20px;
+    background-color: var(--white);
+    color: var(--dark);
+    border-radius: 50px;
+    font-weight: 750;
+}
+
+section.micro-part.pay {}
+
+section.micro-part .paying {
+    color: var(--dark);
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+section.micro-part .paywith {
+    padding: 10px;
+    color: var(--dark);
+    font-weight: 800;
+    font-size: 15px;
+}
+
+section.micro-part .wallet {
+    background-color: var(--lblu);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+section.micro-part .wallet .wallet2 {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 5px auto;
+    align-items: center;
+    color: var(--white);
+}
+
+section.micro-part .wallet .wallet2 #address {
+    outline: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 8px;
+    width: 70%;
+}
+
+section.micro-part .wallet .wallet2 .btn {
+    padding: 10px 8px;
+    border: none;
+    color: var(--white);
+    border-radius: 6px;
+    font-size: 10px;
+    background-color: var(--grn);
+}
+
+section.micro-part .wallet .wallet2 .bt {
+    font-size: 10px;
+    padding: 10px;
+}
+
+section.micro-part.pay .ins {
+    font-size: 12px;
+    color: var(--red);
+    font-weight: 700;
+    text-align: center;
+    padding: 10px;
+}
+
+section.micro-part.pay.h {
+    margin-bottom: 20px;
+}
+
+
+section.micro-part.pay .pai {
+    background-color: var(--lblu);
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    color: var(--white);
+    border-radius: 6px;
+    margin: 0 auto;
+    width: 90%;
+    border: none;
+}
+
+section.micro-part.pay .paidd {
+    margin: 8px 0px;
+    font-size: 14px;
+    text-align: center;
+}
+
+section .secure {
+    display: flex;
+    justify-content: center;
+    color: var(--grn);
+}
+
+/* recharge Record */
+
+section.withdraw-sec .with-money.wm {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+section.withdraw-sec .with-money.wm .with-more.s {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 8px;
+}
+
+section.withdraw-sec .with-money.wm .with-bal.b {
+    text-align: left;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+section.withdraw-sec .with-his.des {
+    font-size: 12px;
+}
+
+section.withdraw-sec .with-his.des .with-tran.uncon {}
+
+section.withdraw-sec .with-his.des .with-tran .un {
+    flex: 1;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+}
+
+section.withdraw-sec .with-his.des button {
+    width: 90%;
+    margin: 0 auto;
+    padding: 5px 2px;
+    border-radius: 10px;
+    color: var(--white);
+    background-color: var(--btn);
+    border: none;
+    margin-bottom: 20px;
+}
+
+section.withdraw-sec .results {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: var(--gray);
+}
+
+/* Team page */
+
+section.withdraw-sec.p.team .with-money.pro.tm {
+    background-color: var(--nav);
+    position: absolute;
+    width: 100%;
+    top: 60px;
+    display: flex;
+    color: var(--white);
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: var(--nav);
+}
+
+section.withdraw-sec.p.team .with-money.pro.tm .with-more .d {
+    font-size: 15px;
+    padding: 8px;
+    color: var(--gray);
+}
+
+section.withdraw-sec.p.team .btn-n {
+    padding: 25px 0px;
+    background-color: var(--nav);
+}
+
+section.withdraw-sec.p.team .btn-n .reff {
+    background-color: var(--btn);
+    width: 60%;
+    padding: 12px 8px;
+    margin: 0 auto;
+    font-size: 12px;
+    border-radius: 50px;
+    color: var(--white);
+    text-align: center;
+
+}
+
+section.withdraw-sec.p.team .profile .with-input.coin.promo {
+    color: var(--dark);
+}
+
+section.withdraw-sec.p.team .desc {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0px;
+    color: var(--dark);
+    text-align: left;
+    font-size: 14px;
+    margin: 15px;
+}
+
+section.withdraw-sec.p.team .desc .cp {
+    font-size: 16px;
+    color: var(--grn);
+    margin-bottom: 8px;
+}
+
+/* Investment */
+section.withdraw-sec.p.team .btn-nn {
+    padding: 10px;
+    background-color: var(--nav);
+}
+
+section.withdraw-sec.p.team .btn-nn .reff {
+    background-color: var(--btn);
+    width: 90%;
+    padding: 20px 8px;
+    margin: 0 auto;
+    font-size: 15px;
+    border-radius: 50px;
+    color: var(--white);
+    bottom: 0;
+    margin-top: 50px;
+    text-align: center;
+}
+
+/* About */
+section.micro-part .about {
+    text-align: left;
+    font-size: 16px;
+}
+
+section.withdraw-sec.p.team desc.about p {
+    color: var(--white);
+}
+
+/* Hoevering */
+section.micron-bottom button.micron-icon {
+    color: var(--dark);
+    /* Default button text color */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+section.micron-bottom button.micron-icon.active {
+    color: #007bff;
+    /* Active button background */
+    /* Active button text color */
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/frontend/styles.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/887e89cc19.js" crossorigin="anonymous"></script>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet" />
+    <title>Withdraw</title>
+    <style>
+        /* Balance Input Styles */
+        #balanceInput {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: #000;
+            /* Change color if needed */
+            font-size: 2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        #balanceInput:focus {
+            background-color: #f0f0f0;
+            /* Add slight background color on focus */
+        }
+    </style>
+</head>
+
+<body>
+    <section class="withdraw-nav n2">
+        <a href="index.html"> <button class="btn-with">
+                <div><i class="fa fa-chevron-left"></i></div>
+            </button></a>
+        <div class="with-now1">Withdraw Now</div>
+    </section>
+
+    <section class="withdraw-sec">
+        <div class="withdraw-img">
+            <img src="/frontend/images/icon-footer-micron-m.png" width="50px" alt="" />
+        </div>
+
+        <!-- Balance Display Section -->
+        <!-- Editable Balance Display Section -->
+        <div class="with-money">
+            <input type="text" id="balanceInput" value="$ 200.00" />
+            <div class="with-bal">Balance</div>
+        </div>
+
+        <form style="display: flex; flex-direction: column;" id="withdrawForm">
+            <div class="with-input">
+                <div>Enter amount you want to Withdraw</div>
+                <input type="text" id="withdrawAmount" placeholder="$ 0" required />
+            </div>
+            <div class="with-input">
+                <div>Enter your USDT wallet Address</div>
+                <input type="text" id="usdtAddress" placeholder="Wallet Address" required />
+            </div>
+            <div class="with-min">
+                <div>Min $500</div>
+                <div>No Limit on Daily Requests</div>
+            </div>
+            <div class="line"></div>
+            <button class="bt" id="submitBtn" type="submit">Submit</button>
+        </form>
+    </section>
+
+    <script>
+        // Get the balance input element
+        const balanceInput = document.getElementById('balanceInput');
+
+        // Load saved balance from localStorage if it exists
+        const savedBalance = localStorage.getItem('balanceValue');
+        if (savedBalance) {
+            balanceInput.value = savedBalance;
+        }
+
+        // Automatically save balance to localStorage when changed
+        balanceInput.addEventListener('input', function () {
+            // Save the updated balance to localStorage
+            localStorage.setItem('balanceValue', balanceInput.value);
+        });
+
+        document.getElementById('withdrawForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent normal form submission
+
+            // Get the withdrawal amount and wallet address
+            const withdrawAmount = document.getElementById('withdrawAmount').value;
+            const usdtAddress = document.getElementById('usdtAddress').value;
+
+            // Save the withdrawal amount and wallet address in localStorage
+            localStorage.setItem('withdrawAmount', withdrawAmount);
+            // localStorage.setItem('usdtAddress', usdtAddress);
+
+            // Redirect to the admintransaction.html page
+            window.location.href = 'admintransaction.html';
+        });
+    </script>
+</body>
+
+</html>

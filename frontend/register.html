@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/887e89cc19.js" crossorigin="anonymous"></script>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet" />
+    <title>Macron Investment</title>
+
+    <style>
+        #btn-sg {
+            background-color: rgb(189, 189, 189);
+            /* Default gray color */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: not-allowed;
+            /* Disable cursor initially */
+        }
+
+        #btn-sg.active {
+            background-color: #0BB8E3;
+            /* Blue color when active */
+            cursor: pointer;
+        }
+
+        /* Popup styles */
+        .popup-message {
+            display: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .popup-message.success {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .popup-message.error {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="back">
+        <a href="login.html"><button><i class="fa fa-chevron-left"
+                    style="font-size: 18px; padding: 10px 0px;"></i></button></a>
+    </section>
+    <section class="micron-login tp">
+
+        <img src="images/micron-logo-white.svg" alt="" />
+        <div class="sng">
+            <p class="s">Register</p>
+            <p class="p">Choose a secure password that will be easy for you to Remember.</p>
+        </div>
+
+        <!-- Form with validation -->
+        <form id="registerForm">
+            <input type="text" id="phone" class="inputStyle" placeholder="Enter Phone Number" />
+            <input type="password" id="password" class="inputStyle" placeholder="Enter Password" />
+            <input type="password" id="confirmPassword" class="inputStyle" placeholder="Confirm Password" />
+            <div class="show" onclick="togglePasswordVisibility('password', 'eyeIcon1')">
+                <i class="fa fa-eye" id="eyeIcon1"></i>
+            </div>
+            <div class="show2" onclick="togglePasswordVisibility('confirmPassword', 'eyeIcon2')">
+                <i class="fa fa-eye" id="eyeIcon2"></i>
+            </div>
+            <br>
+        </form>
+        <div class="p">
+            <input type="checkbox" id="agreeTerms" /> By using our website, you agree to our <a href="terms.html"> Terms
+                of Use and
+                Privacy Policy</a>
+        </div>
+        <br>
+        <button type="submit" id="btn-sg" onclick="validateForm(event)">Sign in</button>
+        <br>
+        <br>
+
+        <!-- Popup for success/error message -->
+        <div id="popupMessage" class="popup-message"></div>
+
+    </section>
+
+    <script>
+        // register
+        // Toggle Password Visibility
+        function togglePasswordVisibility(fieldId, iconId) {
+            const passwordField = document.getElementById(fieldId);
+            const eyeIcon = document.getElementById(iconId);
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        // Function to display the popup
+        function showPopup(message, isSuccess) {
+            const popup = document.getElementById('popupMessage');
+            popup.textContent = message;
+            popup.classList.remove('success', 'error'); // Reset the classes
+
+            // Add appropriate class based on success or error
+            if (isSuccess) {
+                popup.classList.add('success');
+            } else {
+                popup.classList.add('error');
+            }
+
+            // Show the popup
+            popup.style.display = 'block';
+
+            // Hide the popup after 3 seconds
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000);
+        }
+
+        // Show Loading function
+        function showLoading() {
+            const submitButton = document.getElementById('btn-sg');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Loading...';
+        }
+
+        // Hide Loading function
+        function hideLoading() {
+            const submitButton = document.getElementById('btn-sg');
+            submitButton.disabled = false;
+            submitButton.textContent = 'Sign in';
+        }
+
+        // Validate Form
+        async function validateForm(event) {
+            event.preventDefault(); // Prevent form submission
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Phone validation: check if it's numeric and between 6 and 15 digits
+            const phonePattern = /^[0-9]{6,15}$/;
+            if (!phonePattern.test(phone)) {
+                showPopup('Please enter a valid phone number.', false);
+                return;
+            }
+
+            // Check if terms are agreed
+            if (!document.getElementById('agreeTerms').checked) {
+                showPopup('Please agree to the terms and conditions.', false);
+                return;
+            }
+
+            // Password validation: ensure it's not empty
+            if (password.trim() === '') {
+                showPopup('Please enter your password.', false);
+                return;
+            }
+
+            // Confirm password validation: ensure both passwords match
+            if (password !== confirmPassword) {
+                showPopup('Passwords do not match. Please try again.', false);
+                return;
+            }
+
+            // Show loading state
+            showLoading();
+
+            try {
+                // Check for duplicate phone number
+                const duplicateCheck = await fetch('https://apexserver-37my.onrender.com/api/auth/check-duplicate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ phone }),
+                });
+
+                const checkData = await duplicateCheck.json();
+
+                if (checkData.exists) {
+                    showPopup('Phone number already exists. Please use a different number.', false);
+                    hideLoading();
+                    return;
+                }
+
+                // If no duplicate, proceed with registration
+                const registerResponse = await fetch('https://apexserver-37my.onrender.com/api/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        phone,
+                        password
+                    })
+                });
+
+                const registerData = await registerResponse.json();
+
+                if (registerData.token) {
+                    localStorage.setItem('token', registerData.token); // Store the token
+                    showPopup('Registration successful!', true);
+                    window.location.href = 'index.html'; // Redirect to home
+                } else {
+                    showPopup('Error: ' + registerData.message, false);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showPopup('Server error. Please try again later.', false);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        window.onload = function () {
+            const phoneInput = document.getElementById('phone');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const agreeTermsCheckbox = document.getElementById('agreeTerms');
+            const submitButton = document.getElementById('btn-sg');
+
+            // Function to check if all conditions are met
+            function checkInputs() {
+                const phoneValue = phoneInput.value.trim();
+                const passwordValue = passwordInput.value.trim();
+                const confirmPasswordValue = confirmPasswordInput.value.trim();
+                const isChecked = agreeTermsCheckbox.checked;
+
+                // If all fields have values and checkbox is checked, enable the button
+                if (phoneValue && passwordValue && confirmPasswordValue && isChecked) {
+                    submitButton.classList.add('active');
+                    submitButton.disabled = false;
+                } else {
+                    // Otherwise, disable the button
+                    submitButton.classList.remove('active');
+                    submitButton.disabled = true;
+                }
+            }
+
+            // Listen for input and checkbox changes
+            phoneInput.addEventListener('input', checkInputs);
+            passwordInput.addEventListener('input', checkInputs);
+            confirmPasswordInput.addEventListener('input', checkInputs);
+            agreeTermsCheckbox.addEventListener('change', checkInputs);
+        };
+
+    </script>
+
+</body>
+
+</html>

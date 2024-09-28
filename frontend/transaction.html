@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/887e89cc19.js" crossorigin="anonymous"></script>
+    <link href="fontawesome/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <title>Transaction || Receipt</title>
+</head>
+
+<body>
+    <section class="withdraw-nav n2" style="background-color: #fff;">
+        <a href="index.html">
+            <button class="btn-with">
+                <div></div>
+            </button>
+        </a>
+        <div class="with-now1"></div>
+    </section>
+
+    <section class="withdraw-sec" style="height: 80vh;">
+        <div class="withdraw-img">
+            <img src="images/icon-footer-micron-m.png" width="50px" alt="" />
+        </div>
+        <div class="with-money">
+            <div class="with-more">Transaction Receipt</div>
+            <div class="with-bal" style="color: #01B168;">Successful</div>
+        </div>
+
+        <div class="with-input" style="display: flex; flex-direction: row; justify-content: space-between;">
+            <div>
+                <div>Transaction ID</div>
+                <div id="transactionId">TRX-0095567-3663</div>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <img src="images/micron-logo-white.svg" width="100px" alt="" />
+            </div>
+        </div>
+
+        <div class="line"></div>
+        <div class="with-input">
+            <div>Amount Withdrawn</div>
+            <div id="withdrawnAmount">$200</div>
+        </div>
+
+        <div class="line"></div>
+        <div class="with-input">
+            <div>Date</div>
+            <div id="transactionDate">2024-09-13 05:55:36</div>
+        </div>
+
+        <div class="line"></div>
+        <div style="display: flex; justify-content: space-between;">
+            <button id="downloadReceipt"
+                style="width: 50%; margin: 10px; background-color: #0BB8E3; border: none; color: #fff; position: static; bottom: 0; padding: 12px 8px;">
+                Download Receipt
+            </button>
+            <a href="index.html" style="text-decoration: none; width: 50%;">
+                <button id="downloadReceipt"
+                    style="width: 50%; margin: 10px; background-color: #0BB8E3; border: none; color: #fff; position: static; bottom: 0; padding: 12px 8px;">
+                    close
+                </button>
+            </a>
+        </div>
+    </section>
+
+    <script>
+
+
+        // transaction...
+        // Generate a unique transaction ID
+        function generateTransactionId() {
+            const prefix = 'TRX-';
+            const randomNum = Math.floor(Math.random() * 1000000);
+            const suffix = '-' + Math.floor(Math.random() * 10000);
+            return prefix + randomNum.toString().padStart(6, '0') + suffix;
+        }
+
+        // Retrieve the withdrawal amount from localStorage (for demo purpose)
+        const storedAmount = localStorage.getItem('withdrawAmount') || 200; // Default to 3000 if not found
+
+        // Get the current date and time in YYYY-MM-DD HH:MM:SS format
+        function getCurrentDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        // Update the transaction ID
+        document.getElementById('transactionId').innerText = generateTransactionId();
+
+        // Update the withdrawn amount
+        document.getElementById('withdrawnAmount').innerText = `$${storedAmount}`;
+
+        // Update the transaction date
+        document.getElementById('transactionDate').innerText = getCurrentDateTime();
+
+        // Function to download the entire page as an image
+        document.getElementById('downloadReceipt').addEventListener('click', function () {
+            html2canvas(document.body, {
+                onrendered: function (canvas) {
+                    const imgData = canvas.toDataURL('image/jpeg');
+                    const link = document.createElement('a');
+                    link.href = imgData;
+                    link.download = 'transaction_receipt.jpg'; // File name
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            });
+        });
+        // transaction ends
+
+
+    </script>
+    <script src="authCheck.js"></script>
+</body>
+
+</html>

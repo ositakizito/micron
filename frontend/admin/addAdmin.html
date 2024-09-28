@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            /* Set a max width */
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button.btt {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #adminPopupMessage {
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Media query for responsiveness */
+        @media (max-width: 480px) {
+            form {
+                padding: 15px;
+                width: 90%;
+                /* Take a larger percentage on mobile */
+            }
+
+            input,
+            button {
+                padding: 8px;
+                /* Adjust padding for smaller screens */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1><a href="/admin/index.html" style="text-decoration: none; color: #fff;">Dashboard </a></h1>
+        <button class="logout-btn">Logout</button>
+    </header>
+
+    <nav class="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="user.html">View Users</a></li>
+            <li><a href="addAdmin.html">Add Admin</a></li>
+            <li><a href="/frontend/profile.html">Main profile</a></li>
+            <li><a href="adminwithdraw.html">withdraw</a></li>
+            <li><a href="main.html">Homepage</a></li>
+        </ul>
+    </nav>
+
+    <section class="main-content">
+        <form id="adminSignupForm">
+            <h2>Admin Sign-Up</h2>
+            <input type="text" id="adminPhone" placeholder="Enter Admin Phone Number" required />
+            <input type="password" id="adminPassword" placeholder="Enter Password" required />
+            <input type="password" id="adminConfirmPassword" placeholder="Confirm Password" required />
+            <button class="btt" type="submit">Sign Up</button>
+        </form>
+        <div id="adminPopupMessage"></div>
+
+        <script>
+            document.getElementById('adminSignupForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const phone = document.getElementById('adminPhone').value;
+                const password = document.getElementById('adminPassword').value;
+                const confirmPassword = document.getElementById('adminConfirmPassword').value;
+
+                if (password !== confirmPassword) {
+                    showPopup('Passwords do not match.', false);
+                    return;
+                }
+
+                // Admin registration API call
+                fetch('https://apexserver-37my.onrender.com/api/auth/admin-signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ phone: phone, password: password }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        showPopup(data.message, data.token ? true : false);
+                        if (data.token) {
+                            // Store token or redirect as necessary
+                            localStorage.setItem('token', data.token);
+                            window.location.href = 'index.html'; // Redirect to admin dashboard
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showPopup('Server error. Please try again later.', false);
+                    });
+            });
+
+            function showPopup(message, isSuccess) {
+                const popup = document.getElementById('adminPopupMessage');
+                popup.textContent = message;
+                popup.style.color = isSuccess ? 'green' : 'red';
+                popup.style.display = 'block';
+                setTimeout(() => { popup.style.display = 'none'; }, 3000);
+            }
+        </script>
+
+        </div>
+
+
+        <footer>
+            <p>Admin Dashboard &copy; 2024</p>
+        </footer>
+
+        <script src="index.js"></script>
+</body>
+
+</html>
