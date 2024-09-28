@@ -9,35 +9,129 @@
     <link href="fontawesome/css/all.min.css" rel="stylesheet" />
     <title>Payment</title>
     <style>
-        /* Add some styles for the copy button and address */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #E1EFF8;
+        }
+
+        /* Ensure the layout is responsive */
+        .withdraw-nav {
+            height: 60px;
+            background-color: #E1EFF8;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .withdraw-nav .with-now1 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .micron-navtab {
+            background-color: #E1EFF8;
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 15px 0;
+        }
+
+        .pay {
+            font-weight: bold;
+            color: #000;
+        }
+
+        .tf {
+            font-size: 1.2rem;
+            color: #000;
+        }
+
+        .micro-part {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .paying {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .paywith {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .wallet {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
         .wallet2 {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
         }
 
         .wallet2 input {
-            margin-right: 10px;
-            padding: 5px;
+            width: 60%;
+            padding: 10px;
+            font-size: 1rem;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            flex-grow: 1;
+            border-radius: 5px;
         }
 
         .wallet2 .btn {
-            background: #007bff;
-            color: #fff;
+            /* background-color: #007bff; */
+            color: white;
+            padding: 10px;
             border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 1rem;
         }
 
-        .wallet2 .btn i {
-            margin-right: 5px;
+        .wallet2 .bt {
+            font-weight: bold;
+            width: 40px;
+            text-align: left;
         }
 
-        /* Styles for the custom popup */
+        .ins {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .pai {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .paidd {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .secure {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            color: #333;
+        }
+
+        /* Popup for copy confirmation */
         .popup-container {
             display: none;
             position: fixed;
@@ -55,31 +149,63 @@
             display: block;
         }
 
-        .popup-container p {
-            margin: 0;
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .withdraw-nav .with-now1 {
+                font-size: 1rem;
+            }
+
+            .micron-navtab {
+                font-size: 1.2rem;
+                padding: 10px 0;
+            }
+
+            .wallet2 input {
+                width: 55%;
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+
+            .wallet2 .btn {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+
+            .wallet2 .bt {
+                font-size: 0.9rem;
+            }
+
+            .paying {
+                font-size: 0.9rem;
+            }
+
+            .paywith {
+                font-size: 1.1rem;
+            }
+
+            .pai {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <section class="withdraw-nav n2" style="height: 60px; background-color: #E1EFF8;">
-        <div class="with-now1" style="color: #333333;">Choose a method to pay</div>
+    <section class="withdraw-nav n2" style="background-color: unset;">
+        <div class="with-now1" style="color: #212121;">Choose a method to pay</div>
     </section>
-    <section class="micron-navtab rech" style="background-color: #E1EFF8;">
+
+    <section class="micron-navtab rech" style="background-color: unset;">
         <div class="pay">$<span id="rechargeAmount">5000</span></div>
     </section>
 
-    <section class="micron-navtab rech" style="background-color: #E1EFF8;">
+    <section class="micron-navtab rech" style="background-color: unset;">
         <div class="tf">Transfer</div>
     </section>
 
     <section class="micro-part pay h">
-        <div class="paying">
-            Make sure you check on the network type before making any transactions
-        </div>
-        <div class="paywith">
-            Pay with Crypto Currency
-        </div>
+        <div class="paying">Make sure you check on the network type before making any transactions</div>
+        <div class="paywith">Pay with Crypto Currency</div>
         <div class="wallet">
             <div class="wallet2">
                 <div class="bt">BTC</div>
@@ -87,7 +213,7 @@
                 <button class="btn" onclick="copyToClipboard('btcAddress')"><i class="fa fa-copy"></i> Copy</button>
             </div>
             <div class="wallet2">
-                <div class="bt" style="width: 40px;">USDT</div>
+                <div class="bt">USDT</div>
                 <input type="text" id="usdtAddress" readonly value="TV9XwrrokTyfh7V3k8EKkoYzKeGxcA59es" />
                 <button class="btn" onclick="copyToClipboard('usdtAddress')"><i class="fa fa-copy"></i> Copy</button>
             </div>
@@ -105,11 +231,12 @@
         <div class="ins">USDT on TRC20 network Take Note!</div>
 
         <a href="index.html" style="text-decoration: none;"><button class="pai">I Have Paid, Check now</button></a>
-        <div class="paidd">If you have any question, contact us by email</div>
+        <div class="paidd">If you have any questions, contact us by email</div>
         <div class="paidd">Email address: ApexGrowth@gmail.com</div>
     </section>
+
     <section>
-        <div class="secure"> Secured by Google</div>
+        <div class="secure">Secured by Google</div>
     </section>
 
     <!-- Custom Popup for Copy Confirmation -->
@@ -142,9 +269,8 @@
             document.getElementById('rechargeAmount').textContent = amount;
         });
         // payment ends....
-
     </script>
-     <script src="authCheck.js"></script>
+    <script src="authCheck.js"></script>
 </body>
 
 </html>
