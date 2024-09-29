@@ -102,27 +102,31 @@
                     body: JSON.stringify({ phone, password })
                 });
 
+                // Check if response is valid
+                if (!response.ok) {
+                    const errorData = await response.json(); // Attempt to parse error response
+                    showPopup(errorData.message || 'Login failed. Please try again.', false);
+                    resetLoginButton();
+                    return;
+                }
+
                 const data = await response.json();
 
-                if (response.ok) {
-                    // If login is successful, store the token and show a popup
-                    localStorage.setItem('token', data.token);
-                    showPopup('Login successful!', true);
+                // If login is successful, store the token and show a popup
+                localStorage.setItem('token', data.token);
+                showPopup('Login successful!', true);
 
-                    // Redirect based on user role
-                    if (data.role === 'admin') {
-                        window.location.href = 'admin/index.html'; // Redirect to admin dashboard
-                    } else {
-                        window.location.href = 'index.html'; // Redirect to user profile
-                    }
+                // Redirect based on user role
+                if (data.role === 'admin') {
+                    window.location.href = 'admin/index.html'; // Redirect to admin dashboard
                 } else {
-                    showPopup(data.message || 'Login failed. Please try again.', false);
-                    resetLoginButton();
+                    window.location.href = 'index.html'; // Redirect to user profile
                 }
             } catch (error) {
                 console.error('Error:', error);
                 showPopup('Server error. Please try again later.', false);
-                resetLoginButton();
+            } finally {
+                resetLoginButton(); // Always reset the button after attempt
             }
         }
 
