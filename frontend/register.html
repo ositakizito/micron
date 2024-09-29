@@ -21,7 +21,7 @@
         }
 
         #btn-sg.active {
-             background-color: #00ACC1;
+            background-color: #00ACC1;
             /* Blue color when active */
             cursor: pointer;
         }
@@ -56,7 +56,7 @@
         <img src="images/micron-logo-white.svg" alt="" />
         <div class="sng">
             <p class="s">Register</p>
-            <p class="p">Choose a secure password that will be easy for you to Remember.</p>
+            <p class="p">Choose a secure password that will be easy for you to remember.</p>
         </div>
 
         <!-- Form with validation -->
@@ -74,11 +74,10 @@
         </form>
         <div class="p">
             <input type="checkbox" id="agreeTerms" /> By using our website, you agree to our <a href="terms.html"> Terms
-                of Use and
-                Privacy Policy</a>
+                of Use and Privacy Policy</a>
         </div>
         <br>
-        <button type="submit" id="btn-sg" onclick="validateForm(event)">Sign in</button>
+        <button type="submit" id="btn-sg" onclick="validateForm(event)">Sign up</button>
         <br>
         <br>
 
@@ -88,7 +87,6 @@
     </section>
 
     <script>
-        // register
         // Toggle Password Visibility
         function togglePasswordVisibility(fieldId, iconId) {
             const passwordField = document.getElementById(fieldId);
@@ -109,11 +107,7 @@
             popup.classList.remove('success', 'error'); // Reset the classes
 
             // Add appropriate class based on success or error
-            if (isSuccess) {
-                popup.classList.add('success');
-            } else {
-                popup.classList.add('error');
-            }
+            popup.classList.add(isSuccess ? 'success' : 'error');
 
             // Show the popup
             popup.style.display = 'block';
@@ -135,7 +129,7 @@
         function hideLoading() {
             const submitButton = document.getElementById('btn-sg');
             submitButton.disabled = false;
-            submitButton.textContent = 'Sign in';
+            submitButton.textContent = 'Sign up';
         }
 
         // Validate Form
@@ -251,8 +245,8 @@
             confirmPasswordInput.addEventListener('input', checkInputs);
             agreeTermsCheckbox.addEventListener('change', checkInputs);
         };
-
     </script>
+
 
 </body>
 
